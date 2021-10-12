@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>shiro 统一登录页面</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script type="text/javascript" th:src="@{/vendor/jquery.min.js}"></script>
+</head>
+<body>
+    <h1>请登录</h1>
+    <form>
+        <span>用户名：</span>
+        <label>
+            <input id="username_input" type="text" name="username"/>
+        </label>
+        <span>密    码：</span>
+        <label>
+            <input id="password_input" type="password" name="password"/>
+        </label>
+        <input id="login_button" type="button" value="登录">
+    </form>
+
+<script type="text/javascript">
+    /*大多数浏览器都不完全支持XHTML，这就带来主要问题，即这在JavaScript中是个语法错误，因为大多数浏览器还不认识CDATA段。
+        当前使用的解决方案模仿了“对旧浏览器隐藏”代码的方法。使用单行的JavaScript注释"//"，可在不影响代码语法的情况下嵌入CDATA段：
+       现在，这段代码在不支持XHTML的浏览器中也可运行。但是，为避免CDATA的问题，最好还是用外部文件引入JavaScript代码。*/
+    //<![CDATA[
+    $(function(){
+        /*登录按钮点击事件*/
+        $("#login_button").on("click", function () {
+            //debugger;
+            var username = $("#username_input").val();
+            var password = $("#password_input").val();
+            doLogin(username, password);
+        });
+
+    });
+
+    /*登录*/
+    function doLogin(username, password) {
+        //debugger;
+        if (!username) {
+            alert("请输入用户名");
+            return
+        }
+        if (!password) {
+            alert("请输入密码");
+            return
+        }
+        // 请求参数
+         var loginVO = {
+            username: username,
+            password: password
+         };
+         loginVO = JSON.stringify(loginVO);
+        $.ajax({
+            url: "/doLogin",
+            data: loginVO,
+            type: "POST",
+            contentType: "application/json",
+            success: function (res) {
+                debugger;
+                //alert("res==" + res);
+                console.log("res==" + res);
+                if (res.respCode == 200) {
+                    window.location.href = "/index"
+                }
+                else {
+                    alert("登录失败！");
+                    window.location.href = "/login"
+                }
+            }
+        })
+    }
+    //]]>
+</script>
+</body>
+</html>

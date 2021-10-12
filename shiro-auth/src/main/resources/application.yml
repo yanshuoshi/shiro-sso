@@ -1,0 +1,31 @@
+server:
+  port: 8010
+
+spring:
+  # thymeleaf
+  thymeleaf:
+    cache: false # 是否开启模板缓存，默认true
+    # 以下是thymeleaf默认配置
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+  # redis
+  redis:
+    host: 192.168.1.100
+    database: 10
+    port: 6379
+  #mysql
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/utils?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#mybatis
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+  type-aliases-package: com.example.user.entity
+  configuration:
+    map-underscore-to-camel-case: true
