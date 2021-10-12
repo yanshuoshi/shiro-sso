@@ -32,3 +32,7 @@ springBoot, shiro, redis, thymeleaf
 #### 登出
 访问: 127.0.0.1:8010/loginOut
 
+###
+原项目地址:
+https://gitee.com/coderLOL/shiro-sso
+
